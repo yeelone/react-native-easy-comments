@@ -32,9 +32,9 @@
          |-----------------|--------------   |-------------------------------|-------------------|----------|
          | data            | array   | 需要渲染的评论数据 |
          | avatar | string  | 可以指定用户头像|
-         | onLike | func    | 当用户点击like时触发 |child item | 
-         | onDown | func    | 当用户点击down时触发| child item | 
-         | onSend | func    | 当用户回复时触发| content | 
+         | onLike | func    | 当用户点击like时触发 |child item | item |
+         | onDown | func    | 当用户点击down时触发| child item | item |
+         | onSend | func    | 当用户回复时触发| content | content |
          | onFollow | func  | 当用户点击follow时触发| item id |
          | onEndReached | func            | 当滚动到底部时触发 | bool |
 

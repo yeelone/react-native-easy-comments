@@ -30,19 +30,19 @@ export default class HomeScreen extends React.Component {
     }
   }
   
-  onLike  = () => {
-      alert("onLike");
+  onLike  = ({item}) => {
+      alert("onLike"+item.id);
   }
 
-  onDown = () => {
-    alert("onDown");
+  onDown = ({item}) => {
+    alert("onDown" +  item.id );
   }
 
-  onSend = () => {
-    alert("onSend");
+  onSend = ({content}) => {
+    alert("onSend: " + content  );
   }
 
-  onFollow = (item) => {
+  onFollow = ({item}) => {
     alert("onFollow : "+ item.id );
   }
 
