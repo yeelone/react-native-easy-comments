@@ -1,0 +1,173 @@
+import React from 'react';
+import {
+  Text,
+  View,
+  Image,
+  Dimensions,
+  StyleSheet,
+  TouchableHighlight,
+} from 'react-native';
+
+import Icon from 'react-native-vector-icons/FontAwesome';
+import Moment from 'react-moment';
+import 'moment/locale/zh-cn';
+import 'moment-timezone';
+
+const defaultColor = '#b2bec3';
+const likeColor = '#74b9ff';
+const disLikeColor = '#ff7675';
+
+export class Item extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      likeCount:0,
+      disLikeCount:0,
+      like:false,
+      disLike:false,
+      likeColor: defaultColor,
+      disLikeColor: defaultColor,
+      replyColor:defaultColor,
+    }
+  }
+
+  formatTime = (datetime) => {
+      return datetime
+  }
+
+  getSize() {
+      return {
+          width: Dimensions.get('window').width,
+          height: Dimensions.get('window').height
+      }
+  }
+
+  _handleLike = () => {
+    const like = !this.state.like;
+    var color = defaultColor;
+    var count = 0 ;
+    if (like) {
+      color = likeColor;
+      count = 1 ;
+    }
+
+    this.setState({
+      like: like,
+      likeColor : color,
+      disLikeColor : defaultColor,
+      likeCount : count,
+      disLikeCount:0,
+    });
+    this.props.onLike({item:this.props.data});
+  }
+
+  _handleDown = () => {
+    const disLike = !this.state.disLike;
+    var color = defaultColor;
+    var count = 0 ;
+    if (disLike) {
+      color = disLikeColor;
+      count = 1 ;
+    }
+    this.setState({
+      disLike: disLike,
+      disLikeColor : color,
+      likeColor : defaultColor,
+      disLikeCount : count,
+      likeCount:0,
+    });
+    this.props.onLike({item:this.props.data});
+  }
+
+  _handleFollow= () => {
+    try{
+      this.props.onFollow({item:this.props.data});
+    }catch(e){}
+  }
+
+  openReplyModal = () => {
+    this.props.onClick({item:this.props.data});
+  }
+
+  render() {
+    if (this.props.data === null ) {
+      return <View></View>;
+    }
+
+    const { username,avatar,content,time,like,down,disableReply } = this.props.data;
+    var { avatarSize,style,replyNum } = this.props; 
+    style = style || {};  
+    const defaultAvatarSize = { width: 40, height: 40 } 
+    var iconSize = avatarSize || defaultAvatarSize;
+    return (
+      <View style={[styles.container, this.getSize().width ,style]}>
+        <View style={{width:60}}>
+          <Image source={{uri: avatar, ...iconSize}} style={[styles.avatar]}/>
+        </View>
+        <View style={{flex:1}}>
+          <View style={[styles.content,]}>
+            <Text style={{color:"#2c3e50"}}>{content}</Text>
+          </View>
+          <View style={{flex: 1, flexDirection: 'row'}}>
+            <Text style={{color:"#636e72",fontWeight: 'bold',fontSize:12}}>{username} · </Text>
+            <Moment locale="zh-cn" element={Text} fromNow ago style={{color:defaultColor,fontWeight: 'bold',paddingTop:2,fontSize:11}}>{time}</Moment>
+          </View>
+          <View style={{flex: 1, flexDirection: 'row'}}>
+          
+            <View style={{flex:1,flexDirection: 'row',alignSelf: 'flex-end',justifyContent: 'flex-start'}}>
+              <Icon.Button name="thumbs-o-up" size={14} backgroundColor="transparent" color={this.state.likeColor} onPress={this._handleLike}>
+                <Text style={{color:defaultColor}} >{like+this.state.likeCount}</Text>
+              </Icon.Button>
+
+              <Icon.Button name="thumbs-o-down" size={14} backgroundColor="transparent" color={this.state.disLikeColor} onPress={this._handleDown}>
+              <Text style={{color:defaultColor}} >{down+this.state.disLikeCount}</Text>
+              </Icon.Button>
+
+              {this.props.disableReply ? null :
+                <Icon.Button name="comments-o" size={14} backgroundColor="transparent" color={this.state.replyColor} onPress={this.openReplyModal}>
+                  <Text style={{color:defaultColor}}>
+                    {replyNum ? replyNum : null }
+                      回复</Text>
+                </Icon.Button>
+              }
+            </View>
+          </View>
+          
+        </View>
+        <View>
+        {this.props.disableFollow?null:
+          <TouchableHighlight onPress={this._handleFollow}>
+            <View>
+              <Text style={{color:'#fd79a8'}}>关注</Text>
+            </View>
+          </TouchableHighlight>
+        }
+        </View>
+      </View>
+    )
+  }
+}
+const styles = StyleSheet.create({
+  container:{
+    flex:1,
+    flexDirection: 'row',
+    backgroundColor:'#fff',
+    padding:10,
+    borderBottomWidth:1,
+    borderBottomColor:'#dfe6e9',
+  },
+
+  avatar:{
+    margin:10,
+    borderRadius:20,
+  },
+
+  content:{
+    paddingBottom:5,
+    padding:5,
+    backgroundColor:'#dfe6e9',
+    borderRadius:10,
+
+  }
+
+})
