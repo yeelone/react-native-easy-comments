@@ -8,7 +8,6 @@ import {
   StyleSheet,
 } from 'react-native';
 import {Item} from './item';
-import dataMap from '../../mock/data';
 
 export class Reply extends React.Component {
    _keyExtractor = (item, index) => item.id;
