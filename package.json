@@ -1,6 +1,6 @@
 {
   "name": "react-native-easy-comments",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "a react component supporing build your own comments",
   "main": "index.js",
   "scripts": {
@@ -10,6 +10,13 @@
     "react-native",
     "comments"
   ],
+  "dependencies": {
+    "moment": "^2.20.1",
+    "moment-timezone": "^0.5.14",
+    "react-moment": "^0.7.0",
+    "react-native-modalbox": "^1.4.2",
+    "react-native-vector-icons": "^4.5.0"
+  },
   "author": "yeelone",
   "license": "ISC",
   "repository": {
