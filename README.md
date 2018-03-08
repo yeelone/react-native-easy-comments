@@ -38,3 +38,6 @@
          | onFollow | func  | 当用户点击follow时触发| item id |
          | onEndReached | func            | 当滚动到底部时触发 | bool |
 
+
+### telegram 
+https://t.me/yeelone
