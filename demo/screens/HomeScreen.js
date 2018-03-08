@@ -47,7 +47,7 @@ export default class HomeScreen extends React.Component {
   }
 
   onEndReached = (id) => {
-    alert("onEndReached : " + id);
+    console.log("onEndReached : " + id);
   }
 
   render() {

@@ -33,14 +33,14 @@ export class Comments extends React.Component {
 
   onLike= ({item}) => {
     try{
-      this.props.onLike(item);
+      this.props.onLike({item});
     }catch(e){
     }
   }
 
   onDown = ({item}) => {
     try{
-      this.props.onDown(item);
+      this.props.onDown({item});
     }catch(e){
     }
   }
@@ -52,7 +52,7 @@ export class Comments extends React.Component {
   
   onSend = ({content}) => {
     try {
-      this.props.onSend(content);
+      this.props.onSend({content});
     }catch(e){
     }
   }
@@ -73,7 +73,7 @@ export class Comments extends React.Component {
 
   onFollow = ({item}) => {
     try{
-      this.props.onFollow(item);
+      this.props.onFollow({item});
     }catch(e){}
   }
 
@@ -82,9 +82,8 @@ export class Comments extends React.Component {
     try {
       childCount = this.props.data[item.id].length;
     } catch(e){
-      console.log("Item don't have  any children");
+      console.log("Item don't have any children");
     }
-
     
     return (
       <View>

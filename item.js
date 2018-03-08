@@ -21,25 +21,14 @@ export class Item extends React.Component {
   constructor() {
     super();
     this.state = {
-      likeCount:0,
-      disLikeCount:0,
       like:false,
       disLike:false,
+      likeCount:0,
+      disLikeCount:0,
       likeColor: defaultColor,
       disLikeColor: defaultColor,
       replyColor:defaultColor,
     }
-  }
-
-  formatTime = (datetime) => {
-      return datetime
-  }
-
-  getSize() {
-      return {
-          width: Dimensions.get('window').width,
-          height: Dimensions.get('window').height
-      }
   }
 
   _handleLike = () => {
@@ -100,45 +89,45 @@ export class Item extends React.Component {
     const defaultAvatarSize = { width: 40, height: 40 } 
     var iconSize = avatarSize || defaultAvatarSize;
     return (
-      <View style={[styles.container, this.getSize().width ,style]}>
+      <View style={[styles.container,style]}>
         <View style={{width:60}}>
           <Image source={{uri: avatar, ...iconSize}} style={[styles.avatar]}/>
         </View>
         <View style={{flex:1}}>
           <View style={[styles.content,]}>
-            <Text style={{color:"#2c3e50"}}>{content}</Text>
+            <Text style={[styles.text,]} >{content}</Text>
           </View>
-          <View style={{flex: 1, flexDirection: 'row'}}>
+          <View style={{flex: 1, flexDirection: 'row',marginLeft:10,marginTop:5}}>
             <Text style={{color:"#636e72",fontWeight: 'bold',fontSize:12}}>{username} · </Text>
             <Moment locale="zh-cn" element={Text} fromNow ago style={{color:defaultColor,fontWeight: 'bold',paddingTop:2,fontSize:11}}>{time}</Moment>
           </View>
           <View style={{flex: 1, flexDirection: 'row'}}>
-          
             <View style={{flex:1,flexDirection: 'row',alignSelf: 'flex-end',justifyContent: 'flex-start'}}>
               <Icon.Button name="thumbs-o-up" size={14} backgroundColor="transparent" color={this.state.likeColor} onPress={this._handleLike}>
                 <Text style={{color:defaultColor}} >{like+this.state.likeCount}</Text>
               </Icon.Button>
-
               <Icon.Button name="thumbs-o-down" size={14} backgroundColor="transparent" color={this.state.disLikeColor} onPress={this._handleDown}>
-              <Text style={{color:defaultColor}} >{down+this.state.disLikeCount}</Text>
+               <Text style={{color:defaultColor}} >{down+this.state.disLikeCount}</Text>
               </Icon.Button>
 
               {this.props.disableReply ? null :
-                <Icon.Button name="comments-o" size={14} backgroundColor="transparent" color={this.state.replyColor} onPress={this.openReplyModal}>
-                  <Text style={{color:defaultColor}}>
-                    {replyNum ? replyNum : null }
-                      回复</Text>
-                </Icon.Button>
+                <View>
+                  <Icon.Button name="comments-o" size={14} backgroundColor="transparent" color={this.state.replyColor} onPress={this.openReplyModal}>
+                    <Text style={{color:defaultColor}}>
+                      {replyNum ? replyNum : null }
+                        回复</Text>
+                  </Icon.Button>
+                </View>
               }
             </View>
           </View>
           
         </View>
         <View>
-        {this.props.disableFollow?null:
+        {this.props.disableFollow ? null:
           <TouchableHighlight onPress={this._handleFollow}>
             <View>
-              <Text style={{color:'#fd79a8'}}>关注</Text>
+              <Text style={{color:'#fd79a8',margin:2}}>关注</Text>
             </View>
           </TouchableHighlight>
         }
@@ -153,8 +142,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor:'#fff',
     padding:10,
-    borderBottomWidth:1,
-    borderBottomColor:'#dfe6e9',
+    width: Dimensions.get('window').width,
   },
 
   avatar:{
@@ -168,6 +156,11 @@ const styles = StyleSheet.create({
     backgroundColor:'#dfe6e9',
     borderRadius:10,
 
+  },
+
+  text:{
+     color:"#2c3e50",
+     fontSize:15
   }
 
 })

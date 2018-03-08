@@ -82,9 +82,8 @@ export class Comments extends React.Component {
     try {
       childCount = this.props.data[item.id].length;
     } catch(e){
-      console.log("Item don't have  any children");
+      console.log("Item don't have any children");
     }
-
     
     return (
       <View>

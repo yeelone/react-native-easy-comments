@@ -21,7 +21,7 @@ export class Input extends React.Component {
 
   onPress = () => {
       try {
-        this.props.onSend(this.state.text);
+        this.props.onSend({content:this.state.text});
       }catch(e) {
           console.log("There is not designated props named onSend");
       }

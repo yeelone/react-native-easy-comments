@@ -40,7 +40,7 @@ export class Reply extends React.Component {
 
   createEmptyView = () => {
     return (
-     <Text style={{fontSize: 40, alignSelf: 'center'}}>还没有评论哦！</Text>
+     <Text style={{fontSize: 20, alignSelf: 'center',color:'#cccccc'}}>还没有评论哦！</Text>
     );
   }
 
