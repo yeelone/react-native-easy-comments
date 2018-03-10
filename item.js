@@ -142,7 +142,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor:'#fff',
     padding:10,
-    width: Dimensions.get('window').width,
   },
 
   avatar:{
