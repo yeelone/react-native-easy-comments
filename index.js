@@ -119,15 +119,19 @@ export class Comments extends React.Component {
   }
 
   render() {
-    const dataMap = this.props.data;
+    const { data }  = this.props;
+    if ( !data ){
+      return <View><Text>还没有发表评论</Text></View>
+    }
+    
     var childData = null ;
     if (this.state.currentItem){
-      childData = dataMap[this.state.currentItem.id];
+      childData = data[this.state.currentItem.id];
     }
     return (
       <View>
         <FlatList
-          data={dataMap[0]}
+          data={data[0]}
           ListHeaderComponent={this.createInputComponent()}
           ListEmptyComponent={this.createEmptyView()}
           keyExtractor={this._keyExtractor}
