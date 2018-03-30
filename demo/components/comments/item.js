@@ -10,6 +10,7 @@ import {
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Moment from 'react-moment';
+import ViewMoreText from 'react-native-view-more-text';
 import 'moment/locale/zh-cn';
 import 'moment-timezone';
 
@@ -23,12 +24,25 @@ export class Item extends React.Component {
     this.state = {
       like:false,
       disLike:false,
+      followed:false,
       likeCount:0,
       disLikeCount:0,
       likeColor: defaultColor,
       disLikeColor: defaultColor,
       replyColor:defaultColor,
     }
+  }
+
+  renderViewMore = (onPress) => {
+    return(
+      <Text onPress={onPress} style={{color:"#636e72",fontSize:10}}>View more</Text>
+    )
+  }
+
+  renderViewLess = (onPress) => {
+    return(
+      <Text onPress={onPress} style={{color:"#636e72",fontSize:10}}>View less</Text>
+    )
   }
 
   _handleLike = () => {
@@ -71,7 +85,11 @@ export class Item extends React.Component {
   _handleFollow= () => {
     try{
       this.props.onFollow({item:this.props.data});
-    }catch(e){}
+      this.setState({followed:true});
+    }catch(e){
+      this.setState({followed:false});
+      alert("网络发生错误，请再试一次")
+    }
   }
 
   openReplyModal = () => {
@@ -89,23 +107,29 @@ export class Item extends React.Component {
     const defaultAvatarSize = { width: 40, height: 40 } 
     var iconSize = avatarSize || defaultAvatarSize;
     return (
-      <View style={[styles.container,style]}>
+      <View style={[styles.container,style]} >
         <View style={{width:60}}>
           <Image source={{uri: avatar, ...iconSize}} style={[styles.avatar]}/>
         </View>
         <View style={{flex:1}}>
-          <View style={[styles.content,]}>
-            <Text style={[styles.text,]} >{content}</Text>
-          </View>
+            <ViewMoreText
+              numberOfLines={20}
+              renderViewMore={this.renderViewMore}
+              renderViewLess={this.renderViewLess}
+              textStyle={{textAlign: 'left'}}>
+              <Text style={[styles.text,]} >{content}</Text>
+            </ViewMoreText>
           <View style={{flex: 1, flexDirection: 'row',marginLeft:10,marginTop:5}}>
             <Text style={{color:"#636e72",fontWeight: 'bold',fontSize:12}}>{username} · </Text>
             <Moment locale="zh-cn" element={Text} fromNow ago style={{color:defaultColor,fontWeight: 'bold',paddingTop:2,fontSize:11}}>{time}</Moment>
           </View>
-          <View style={{flex: 1, flexDirection: 'row'}}>
+          <View style={{flex: 1, flexDirection: 'row',}}>
             <View style={{flex:1,flexDirection: 'row',alignSelf: 'flex-end',justifyContent: 'flex-start'}}>
+              
               <Icon.Button name="thumbs-o-up" size={14} backgroundColor="transparent" color={this.state.likeColor} onPress={this._handleLike}>
                 <Text style={{color:defaultColor}} >{like+this.state.likeCount}</Text>
               </Icon.Button>
+              
               <Icon.Button name="thumbs-o-down" size={14} backgroundColor="transparent" color={this.state.disLikeColor} onPress={this._handleDown}>
                <Text style={{color:defaultColor}} >{down+this.state.disLikeCount}</Text>
               </Icon.Button>
@@ -124,12 +148,19 @@ export class Item extends React.Component {
           
         </View>
         <View>
-        {this.props.disableFollow ? null:
+        {this.props.enableFollow ?
           <TouchableHighlight onPress={this._handleFollow}>
             <View>
-              <Text style={{color:'#fd79a8',margin:2}}>关注</Text>
+              {this.state.followed ?
+              <Text style={{color:'#ff7675',margin:2}}>已关注</Text>
+              :
+              <Text style={{color:'#b2bec3',margin:2}}>关注</Text>
+              }
+              
             </View>
           </TouchableHighlight>
+          :
+          null
         }
         </View>
       </View>
@@ -154,12 +185,10 @@ const styles = StyleSheet.create({
     padding:5,
     backgroundColor:'#dfe6e9',
     borderRadius:10,
-
   },
 
   text:{
      color:"#2c3e50",
-     fontSize:15
   }
 
 })

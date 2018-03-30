@@ -29,11 +29,11 @@ export class Reply extends React.Component {
         key={index}
         data={item}
         disableReply={true}
-        disableFollow={true}
+        enableFollow={false}
         onLike={this.onLike}
         onDown={this.onDown}
         onClick={this.onClick}
-        
+        enableFollow={this.props.enableFollow}
         avatarSize={{ width: 30, height: 30 }}/>
     )
   }
@@ -46,7 +46,7 @@ export class Reply extends React.Component {
 
   createHeaderView = () => {
     const {item,replies,inputElement,onEndReached} = this.props;
-    var input = inputElement || <Text>nothing to input </Text>
+    var input = inputElement || <Text> nothing to input </Text>
 
     return (
       <View>
@@ -54,6 +54,7 @@ export class Reply extends React.Component {
           <Item
             data={item}
             disableReply={true}
+            enableFollow={this.props.enableFollow}
             onLike={this.onLike}
             onDown={this.onDown}
             onFollow={({item}) => this.props.onFollow({item})}

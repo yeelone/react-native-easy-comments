@@ -9,6 +9,8 @@ import {
 import {Item} from './item';
 import {Input} from './input';
 import {ReplyModal} from './replyModal';
+import { Reply } from './reply';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export class Comments extends React.Component {
   constructor() {
@@ -21,6 +23,22 @@ export class Comments extends React.Component {
       currentItem:null,
       onEndReachedCalledDuringMomentum:true,
     }
+  }
+
+  generateChildItem = ({item,index}) => {
+    return (
+      <Item
+        key={index}
+        data={item}
+        replyNum={childCount}
+        disableReply={false}
+        onLike={this.onLike}
+        onDown={this.onDown}
+        onClick={this.onClick}
+        onFollow={this.onFollow}
+        enableFollow={this.props.enableFollow}
+          />
+    )
   }
 
    _keyExtractor = (item, index) => item.id;
@@ -82,7 +100,6 @@ export class Comments extends React.Component {
     try {
       childCount = this.props.data[item.id].length;
     } catch(e){
-      console.log("Item don't have any children");
     }
     
     return (
@@ -96,6 +113,7 @@ export class Comments extends React.Component {
           onDown={this.onDown}
           onClick={this.onClick}
           onFollow={this.onFollow}
+          enableFollow={this.props.enableFollow}
             />
         </View>
     )
@@ -103,7 +121,7 @@ export class Comments extends React.Component {
 
   createEmptyView = () => {
     return (
-     <Text style={{fontSize: 40, alignSelf: 'center'}}>还没有评论哦！</Text>
+     <Text style={{fontSize: 20, alignSelf: 'center',color:"#cccccc"}}>还没有评论哦！</Text>
     );
   }
 
@@ -112,27 +130,40 @@ export class Comments extends React.Component {
     avatar = avatar || "";
     return (
       <View style={{flex:1,flexDirection:'row'}}>
-        <Image source={{uri: avatar,width: 30, height: 30  }} style={{margin:10,borderRadius:20}}/>
+        <Image source={{uri: avatar,width: 30, height: 30}} style={{marginTop:10,borderRadius:50}}/>
         <Input style={{flex:1}} onSend={this.onSend}/>
       </View>
     )
   }
 
-  render() {
-    const { data }  = this.props;
-    if ( !data ){
-      return <View><Text>还没有发表评论</Text></View>
-    }
-    
+  genModalBody = () => {
+    const data  = this.props.data || {} ;
     var childData = null ;
     if (this.state.currentItem){
       childData = data[this.state.currentItem.id];
     }
+
     return (
-      <View>
+      <Reply
+        item={this.state.currentItem}
+        replies={childData}
+        inputElement={this.createInputComponent()}
+        onEndReached={this.props.onEndReached}
+        onFollow={this.onFollow}
+        onLike={this.onLike}
+        onDown={this.onDown}
+                />
+    )
+  }
+
+
+  render() {
+    const data  = this.props.data || {} ;
+    return (
+      <View style={{flex:1,backgroundColor:"#ffffff"}}>
         <FlatList
           data={data[0]}
-          ListHeaderComponent={this.createInputComponent()}
+          // ListHeaderComponent={this.createInputComponent()}
           ListEmptyComponent={this.createEmptyView()}
           keyExtractor={this._keyExtractor}
           renderItem={this.renderItem}
@@ -140,17 +171,13 @@ export class Comments extends React.Component {
           onEndReached={({ distanceFromEnd }) => {  
               this.onEndReached(0);
           }}
+          style={{flex:1}}
         />
-        <ReplyModal
-          ref={"modal1"}
-          item={this.state.currentItem}
-          inputElement={this.createInputComponent()}
-          replies={childData}
-          onEndReached={this.onEndReached}
-          onFollow={this.onFollow}
-          onSend={this.onSend}
-          onLike={this.onLike}
-          onDown={this.onDown} />
+          <View style={{height:50}}>
+            {this.createInputComponent()}
+          </View>
+          <ReplyModal
+            ref={"modal1"} body={this.genModalBody()}/>
       </View>
     )
   }

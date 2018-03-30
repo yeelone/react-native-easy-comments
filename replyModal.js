@@ -13,7 +13,6 @@ import {
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import Modal from 'react-native-modalbox';
-import { Reply } from './reply';
 
 export class ReplyModal extends React.Component {
   constructor() {
@@ -25,8 +24,6 @@ export class ReplyModal extends React.Component {
       sliderValue: 0.3
     }
   }
-
-  _keyExtractor = (item, index) => item.id;
 
   open = () => {
     this.refs.modal.open();
@@ -41,19 +38,7 @@ export class ReplyModal extends React.Component {
   onClosingState(state) {
   }
 
-  onLike= ({item}) => {
-    this.props.onLike({item});
-  }
-
-  onDown = ({item}) => {
-    this.props.onDown({item});
-  }
-
-  onFollow = ({item}) => {
-    this.props.onFollow({item});
-  }
   render() {
-    const { item,replies,inputElement,onEndReached} = this.props;
     return (
       <Modal
         style={[styles.modal, styles.modal1]}
@@ -67,15 +52,7 @@ export class ReplyModal extends React.Component {
               <Icon.Button size={30} style={[styles.closeBtn]} name="ios-close" backgroundColor="#fff" color="#666666" onPress={() => this.refs.modal.close()} />
             </View>
             <View style={[styles.bodyContainer]}>
-              <Reply
-                item={item}
-                replies={replies}
-                inputElement={inputElement}
-                onEndReached={this.props.onEndReached}
-                onFollow={this.onFollow}
-                onLike={this.onLike}
-                onDown={this.onDown}
-                />
+              {this.props.body}
               </View>
             </View>
       </Modal>
@@ -116,7 +93,7 @@ const styles = StyleSheet.create({
   modal: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: Platform.OS === 'ios' ?  35 : 0,
+    paddingTop: Platform.OS === 'ios' ?  20 : 0,
   },
 
   modal1: {
