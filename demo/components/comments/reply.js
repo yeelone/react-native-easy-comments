@@ -10,7 +10,7 @@ import {
 import {Item} from './item';
 
 export class Reply extends React.Component {
-   _keyExtractor = (item, index) => item.id;
+   _keyExtractor = (item, index) => item.id.toString();
 
   onClick = () => {
   }

@@ -49,7 +49,7 @@ export class ReplyModal extends React.Component {
           <View >
             <View style={[styles.header,]} >
               <Text style={[styles.headerText]}>回复</Text>
-              <Icon.Button size={30} style={[styles.closeBtn]} name="ios-close" backgroundColor="#fff" color="#666666" onPress={() => this.refs.modal.close()} />
+              <Icon.Button size={30} style={[styles.closeBtn]} name="ios-close" backgroundColor="transparent" color="#666666" onPress={() => this.refs.modal.close()} />
             </View>
             <View style={[styles.bodyContainer]}>
               {this.props.body}

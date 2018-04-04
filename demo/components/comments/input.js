@@ -61,7 +61,7 @@ export class Input extends React.Component {
                         { this.state.disabled ?
                             null
                             :
-                            <Icon.Button onPress={this.onPress} size={30}  backgroundColor="transparent" name="md-done-all" color="#666666"  />
+                            <Icon.Button onPress={this.onPress} size={28}  backgroundColor="transparent" name="md-done-all" color="#666666"  />
                         }
                     </View>
                     <TextInput
