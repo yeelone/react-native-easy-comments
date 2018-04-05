@@ -25,22 +25,6 @@ export class Comments extends React.Component {
     }
   }
 
-  generateChildItem = ({item,index}) => {
-    return (
-      <Item
-        key={index}
-        data={item}
-        replyNum={childCount}
-        disableReply={false}
-        onLike={this.onLike}
-        onDown={this.onDown}
-        onClick={this.onClick}
-        onFollow={this.onFollow}
-        enableFollow={this.props.enableFollow}
-          />
-    )
-  }
-
    _keyExtractor = (item, index) => item.id.toString();
 
   setCurrentItem = (item) => {
@@ -63,9 +47,15 @@ export class Comments extends React.Component {
     }
   }
 
-  onClick = ({item}) => {
+  onPress = ({item}) => {
     this.setCurrentItem(item);
     this.refs.modal1.open();
+
+    try{
+      this.props.onPress({item});
+    }catch(e){
+    }
+
   }
   
   onSend = ({parent,content}) => {
@@ -112,7 +102,7 @@ export class Comments extends React.Component {
           onLike={this.onLike}
           onDown={this.onDown}
           onClick={this.onClick}
-          onPress={this.props.onPress}
+          onPress={this.onPress}
           onFollow={this.onFollow}
           enableFollow={this.props.enableFollow}
             />

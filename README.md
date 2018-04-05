@@ -34,7 +34,8 @@
          | avatar | string  | 可以指定用户头像|
          | onLike | func    | 当用户点击like时触发 |child item | item |
          | onDown | func    | 当用户点击down时触发| child item | item |
-         | onSend | func    | 当用户回复时触发| content | content |
+         | onSend | func    | 当用户回复时触发| parent id,content | parent , content |
+         | onPress | func    | 当评论文字被点击的时候会返回被点击的item以方便处理后续事项，| item | item |
          | onFollow | func  | 当用户点击follow时触发| item id |
          | onEndReached | func            | 当滚动到底部时触发 | bool |
 

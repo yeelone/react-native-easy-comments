@@ -12,7 +12,7 @@ import {Item} from './item';
 export class Reply extends React.Component {
    _keyExtractor = (item, index) => item.id.toString();
 
-  onClick = () => {
+   onPress = () => {
   }
 
   onLike= ({item}) => {
@@ -32,7 +32,7 @@ export class Reply extends React.Component {
         enableFollow={false}
         onLike={this.onLike}
         onDown={this.onDown}
-        onClick={this.onClick}
+        onPress={this.onPress}
         enableFollow={this.props.enableFollow}
         avatarSize={{ width: 30, height: 30 }}/>
     )

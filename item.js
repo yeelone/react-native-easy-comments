@@ -81,15 +81,10 @@ export class Item extends React.Component {
 
   _handlePress = () => {
     try {
-      this.props.onPress();
-      this.openReplyModal();
+      this.props.onPress({item:this.props.data});
     }catch(e){
 
     }
-  }
-
-  openReplyModal = () => {
-    this.props.onClick({item:this.props.data});
   }
 
   render() {
@@ -126,7 +121,7 @@ export class Item extends React.Component {
 
               {this.props.disableReply ? null :
                 <View>
-                  <Icon.Button name="comments-o" size={14} backgroundColor="transparent" color={this.state.replyColor} onPress={this.openReplyModal}>
+                  <Icon.Button name="comments-o" size={14} backgroundColor="transparent" color={this.state.replyColor} onPress={this._handlePress}>
                     <Text style={{color:defaultColor}}>
                       {replyNum ? replyNum : null }
                         回复</Text>
