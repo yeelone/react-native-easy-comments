@@ -5,12 +5,11 @@ import {
   Image,
   Dimensions,
   StyleSheet,
-  TouchableHighlight,
+  TouchableOpacity,
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Moment from 'react-moment';
-import ViewMoreText from 'react-native-view-more-text';
 import 'moment/locale/zh-cn';
 import 'moment-timezone';
 
@@ -31,18 +30,6 @@ export class Item extends React.Component {
       disLikeColor: defaultColor,
       replyColor:defaultColor,
     }
-  }
-
-  renderViewMore = (onPress) => {
-    return(
-      <Text onPress={onPress} style={{color:"#636e72",fontSize:10}}>View more</Text>
-    )
-  }
-
-  renderViewLess = (onPress) => {
-    return(
-      <Text onPress={onPress} style={{color:"#636e72",fontSize:10}}>View less</Text>
-    )
   }
 
   _handleLike = () => {
@@ -92,6 +79,15 @@ export class Item extends React.Component {
     }
   }
 
+  _handlePress = () => {
+    try {
+      this.props.onPress();
+      this.openReplyModal();
+    }catch(e){
+
+    }
+  }
+
   openReplyModal = () => {
     this.props.onClick({item:this.props.data});
   }
@@ -112,13 +108,7 @@ export class Item extends React.Component {
           <Image source={{uri: avatar, ...iconSize}} style={[styles.avatar]}/>
         </View>
         <View style={{flex:1}}>
-            <ViewMoreText
-              numberOfLines={20}
-              renderViewMore={this.renderViewMore}
-              renderViewLess={this.renderViewLess}
-              textStyle={{textAlign: 'left'}}>
-              <Text style={[styles.text,]} >{content}</Text>
-            </ViewMoreText>
+              <TouchableOpacity onPress={this._handlePress}><Text style={[styles.text,]} >{content}</Text></TouchableOpacity>
           <View style={{flex: 1, flexDirection: 'row',marginLeft:10,marginTop:5}}>
             <Text style={{color:"#636e72",fontWeight: 'bold',fontSize:12}}>{username} · </Text>
             <Moment locale="zh-cn" element={Text} fromNow ago style={{color:defaultColor,fontWeight: 'bold',paddingTop:2,fontSize:11}}>{time}</Moment>
@@ -149,7 +139,7 @@ export class Item extends React.Component {
         </View>
         <View>
         {this.props.enableFollow ?
-          <TouchableHighlight onPress={this._handleFollow}>
+          <TouchableOpacity onPress={this._handleFollow}>
             <View>
               {this.state.followed ?
               <Text style={{color:'#ff7675',margin:2}}>已关注</Text>
@@ -158,7 +148,7 @@ export class Item extends React.Component {
               }
               
             </View>
-          </TouchableHighlight>
+          </TouchableOpacity>
           :
           null
         }

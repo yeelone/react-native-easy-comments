@@ -112,6 +112,7 @@ export class Comments extends React.Component {
           onLike={this.onLike}
           onDown={this.onDown}
           onClick={this.onClick}
+          onPress={this.props.onPress}
           onFollow={this.onFollow}
           enableFollow={this.props.enableFollow}
             />

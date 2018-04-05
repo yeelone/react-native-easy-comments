@@ -9,9 +9,9 @@ import {
   FlatList,
   Platform,
   StatusBar,
+  TouchableOpacity,
 } from 'react-native';
 
-import Icon from 'react-native-vector-icons/Ionicons';
 import Modal from 'react-native-modalbox';
 
 export class ReplyModal extends React.Component {
@@ -49,7 +49,7 @@ export class ReplyModal extends React.Component {
           <View >
             <View style={[styles.header,]} >
               <Text style={[styles.headerText]}>回复</Text>
-              <Icon.Button size={30} style={[styles.closeBtn]} name="ios-close" backgroundColor="transparent" color="#666666" onPress={() => this.refs.modal.close()} />
+              <TouchableOpacity onPress={() => this.refs.modal.close()}><Text style={[styles.closeText,]} >关闭</Text></TouchableOpacity>
             </View>
             <View style={[styles.bodyContainer]}>
               {this.props.body}
@@ -68,20 +68,24 @@ const styles = StyleSheet.create({
       width:width,
       height:40,
       flexDirection:'row',
-      shadowColor: '#000',
       borderRadius: 0,
       borderColor: '#ddd',
       borderBottomWidth: 1,
-      shadowOffset: { width: 0, height: 5 },
-      shadowOpacity: 0.8,
-      elevation:1,
   },
 
   headerText: {
     flex:1,
     color:'#666666',
     alignSelf:'flex-start',
-    fontSize:18,
+    fontSize:16,
+    padding:8,
+  },
+
+  closeText: {
+    flex:1,
+    color:'#666666',
+    alignSelf:'flex-end',
+    fontSize:16,
     padding:8,
   },
 
@@ -103,5 +107,9 @@ const styles = StyleSheet.create({
 
   bodyContainer: {
     flex:1
-  }
+  },
+
+  text:{
+    color:"#2c3e50",
+ }
 })

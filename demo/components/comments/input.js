@@ -10,7 +10,6 @@ import {
     Platform,
 } from 'react-native';
 import Modal from 'react-native-modalbox';
-import Icon from 'react-native-vector-icons/Ionicons';
 export class Input extends React.Component {
   constructor() {
     super();
@@ -49,19 +48,19 @@ export class Input extends React.Component {
       <View style={[styles.container,this.props.style]}>
             <TouchableOpacity
                 onPress={()=>this.refs.inputModal.open()} style={[styles.openModal,]}>
-                    <Text style={{color:'#cccccc'}}>能否留下您的见解？</Text>
+                    <Text style={{color:'#cccccc'}}>写下您的回复</Text>
             </TouchableOpacity>
             <Modal
-                style={[styles.modal, styles.modal1]}
+                style={[styles.modal,]}
                 ref={"inputModal"}
                 coverScreen={true}>
                 <View >
                     <View style={[styles.header,]} >
-                        <Icon.Button size={30} style={[styles.closeBtn]} backgroundColor="transparent" name="ios-close" color="#666666" onPress={() => this.refs.inputModal.close()} />
+                        <TouchableOpacity onPress={() => this.refs.inputModal.close()}><Text style={[styles.closeText,]} >关闭</Text></TouchableOpacity>
                         { this.state.disabled ?
                             null
                             :
-                            <Icon.Button onPress={this.onPress} size={28}  backgroundColor="transparent" name="md-done-all" color="#666666"  />
+                            <TouchableOpacity onPress={this.onPress} ><Text style={[styles.headerText,]} >发送</Text></TouchableOpacity>
                         }
                     </View>
                     <TextInput
@@ -95,17 +94,7 @@ const styles = StyleSheet.create({
         padding:10,
         textAlignVertical:'top',
         backgroundColor:'#ecf0f1',
-    },
-    closeBtn: {
-        paddingLeft:10,
-    },
-    sendBtn:{
-        width:50,
-        padding:5,
-        justifyContent: 'flex-end',
-    },
-    btnText:{
-        color:'#cccccc'
+        
     },
     header :{
         width:width,
@@ -116,18 +105,14 @@ const styles = StyleSheet.create({
         borderRadius: 0,
         borderColor: '#ddd',
         borderBottomWidth: 1,
-        shadowOffset: { width: 0, height: 5 },
-        shadowOpacity: 0.8,
-        elevation:1,
     },
     openModal:{
-        borderWidth:1,
-        borderColor:'#cccccc',
+        borderTopWidth:1,
+        borderBottomWidth:1,
+        borderColor:'#f5f5f5',
         flex:1,
-        borderRadius:20,
         paddingLeft:20,
-        paddingTop:5,
-        paddingBottom:5,
+        justifyContent: 'center',
     },
     modal: {
       justifyContent: 'center',
@@ -135,12 +120,19 @@ const styles = StyleSheet.create({
       paddingTop: Platform.OS === 'ios' ?  20 : 0,
     },
   
-    modal1: {
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-  
-    bodyContainer: {
-      flex:1
-    }
+    headerText: {
+        flex:1,
+        color:'#666666',
+        alignSelf:'flex-start',
+        fontSize:16,
+        padding:8,
+      },
+    
+      closeText: {
+        flex:1,
+        color:'#666666',
+        alignSelf:'flex-end',
+        fontSize:16,
+        padding:8,
+      },
 });
