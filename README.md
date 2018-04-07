@@ -1,7 +1,7 @@
 ### react-native-easy-comments 
 
 #### 截图示例
-<img src="https://wx3.sinaimg.cn/mw690/6547935dgy1fp0fr9cnmij20u01hcgs1.jpg" width=250/>      <img src="https://wx1.sinaimg.cn/mw690/6547935dgy1fp0fr96uxcj20u01hcn27.jpg" width=250/>
+<img src="https://wx3.sinaimg.cn/mw690/6547935dgy1fq3s69cmcej20bi0kgjsi.jpg" width=250/>      <img src="https://wx3.sinaimg.cn/mw690/6547935dgy1fq3s69bvcjj20bi0kgaax.jpg" width=250/>
 
 #### expo扫码体验：
 <img src="https://wx1.sinaimg.cn/mw690/6547935dgy1fp0fx9cnauj20dj0imdgf.jpg" width=250 />
@@ -33,7 +33,7 @@
          | data            | array   | 需要渲染的评论数据 |
          | avatar | string  | 可以指定用户头像|
          | onLike | func    | 当用户点击like时触发 |child item | item |
-         | onDown | func    | 当用户点击down时触发| child item | item |
+         | onDislike | func    | 当用户点击down时触发| child item | item |
          | onSend | func    | 当用户回复时触发| parent id,content | parent , content |
          | onPress | func    | 当评论文字被点击的时候会返回被点击的item以方便处理后续事项，| item | item |
          | onFollow | func  | 当用户点击follow时触发| item id |
@@ -42,3 +42,7 @@
 
 ### telegram 
 https://t.me/yeelone
+
+### email 如有问题欢迎使用email联系我
+yljckh ### [gmail.com]
+

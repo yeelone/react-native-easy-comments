@@ -19,8 +19,8 @@ export class Reply extends React.Component {
     this.props.onLike({item});
   }
 
-  onDown = ({item}) => {
-    this.props.onDown({item});
+  onDislike = ({item}) => {
+    this.props.onDislike({item});
   }
 
   renderItem = ({item,index}) => {
@@ -31,7 +31,7 @@ export class Reply extends React.Component {
         disableReply={true}
         enableFollow={false}
         onLike={this.onLike}
-        onDown={this.onDown}
+        onDislike={this.onDislike}
         onPress={this.onPress}
         enableFollow={this.props.enableFollow}
         avatarSize={{ width: 30, height: 30 }}/>
@@ -56,7 +56,7 @@ export class Reply extends React.Component {
             disableReply={true}
             enableFollow={this.props.enableFollow}
             onLike={this.onLike}
-            onDown={this.onDown}
+            onDislike={this.onDislike}
             onFollow={({item}) => this.props.onFollow({item})}
             style={{backgroundColor:'#f5f5f5'}}
             />

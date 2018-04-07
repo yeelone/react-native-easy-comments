@@ -51,7 +51,7 @@ export class Item extends React.Component {
     this.props.onLike({item:this.props.data});
   }
 
-  _handleDown = () => {
+  _handleDislike = () => {
     const disLike = !this.state.disLike;
     var color = defaultColor;
     var count = 0 ;
@@ -66,7 +66,7 @@ export class Item extends React.Component {
       disLikeCount : count,
       likeCount:0,
     });
-    this.props.onLike({item:this.props.data});
+    this.props.onDislike({item:this.props.data});
   }
 
   _handleFollow= () => {
@@ -92,46 +92,27 @@ export class Item extends React.Component {
       return <View></View>;
     }
 
-    const { username,avatar,content,time,like,down,disableReply } = this.props.data;
+    const { username,avatar,content,time,like,dislike,disableReply } = this.props.data;
     var { avatarSize,style,replyNum } = this.props; 
     style = style || {};  
     const defaultAvatarSize = { width: 40, height: 40 } 
     var iconSize = avatarSize || defaultAvatarSize;
     return (
       <View style={[styles.container,style]} >
-        <View style={{width:60}}>
-          <Image source={{uri: avatar, ...iconSize}} style={[styles.avatar]}/>
-        </View>
-        <View style={{flex:1}}>
-              <TouchableOpacity onPress={this._handlePress}><Text style={[styles.text,]} >{content}</Text></TouchableOpacity>
-          <View style={{flex: 1, flexDirection: 'row',marginLeft:10,marginTop:5}}>
-            <Text style={{color:"#636e72",fontWeight: 'bold',fontSize:12}}>{username} · </Text>
-            <Moment locale="zh-cn" element={Text} fromNow ago style={{color:defaultColor,fontWeight: 'bold',paddingTop:2,fontSize:11}}>{time}</Moment>
-          </View>
-          <View style={{flex: 1, flexDirection: 'row',}}>
-            <View style={{flex:1,flexDirection: 'row',alignSelf: 'flex-end',justifyContent: 'flex-start'}}>
-              
-              <Icon.Button name="thumbs-o-up" size={14} backgroundColor="transparent" color={this.state.likeColor} onPress={this._handleLike}>
-                <Text style={{color:defaultColor}} >{like+this.state.likeCount}</Text>
-              </Icon.Button>
-              
-              <Icon.Button name="thumbs-o-down" size={14} backgroundColor="transparent" color={this.state.disLikeColor} onPress={this._handleDown}>
-               <Text style={{color:defaultColor}} >{down+this.state.disLikeCount}</Text>
-              </Icon.Button>
-
-              {this.props.disableReply ? null :
-                <View>
-                  <Icon.Button name="comments-o" size={14} backgroundColor="transparent" color={this.state.replyColor} onPress={this._handlePress}>
-                    <Text style={{color:defaultColor}}>
-                      {replyNum ? replyNum : null }
-                        回复</Text>
-                  </Icon.Button>
+          <View style={[styles.userInfoContainer,]}>
+            <View style={{width:40}}>
+              <Image source={{uri: avatar, ...iconSize}} style={[styles.avatar]}/>
+            </View>
+            <View style={{flex: 1,marginLeft:20,marginTop:10}}>
+                <Text style={{color:"#636e72",fontWeight: 'bold',fontSize:14}}>{username} </Text>
+                <View style={{flex:1,flexDirection:'row'}}>
+                  <Moment element={Text} format="YYYY-MM-DD" style={[styles.datetime,]}>{time}</Moment>
+                  <Text  style={[styles.datetime,]}> · </Text>
+                  <Moment locale="zh-cn" element={Text} fromNow style={[styles.datetime,]}>{time}</Moment>
                 </View>
-              }
             </View>
           </View>
-          
-        </View>
+        
         <View>
         {this.props.enableFollow ?
           <TouchableOpacity onPress={this._handleFollow}>
@@ -148,6 +129,33 @@ export class Item extends React.Component {
           null
         }
         </View>
+        <View style={{flex:1,marginLeft:15,marginRight:15,marginBottom:15}}>
+          <TouchableOpacity onPress={this._handlePress}><Text style={[styles.text,]} >{content}</Text></TouchableOpacity>
+        </View>
+
+        <View style={{flex: 1, flexDirection: 'row'}}>
+          <View style={[styles.actionBar,]}>
+            
+            <Icon.Button name="thumbs-o-up" size={14} backgroundColor="transparent" color={this.state.likeColor} onPress={this._handleLike}>
+              <Text style={{color:defaultColor}} >{like+this.state.likeCount}</Text>
+            </Icon.Button>
+            
+            <Icon.Button name="thumbs-o-down" size={14} backgroundColor="transparent" color={this.state.disLikeColor} onPress={this._handleDislike}>
+              <Text style={{color:defaultColor}} >{dislike + this.state.disLikeCount}</Text>
+            </Icon.Button>
+
+            {this.props.disableReply ? null :
+              <View>
+                <Icon.Button name="comments-o" size={14} backgroundColor="transparent" color={this.state.replyColor} onPress={this._handlePress}>
+                  <Text style={{color:defaultColor}}>
+                    {replyNum ? replyNum : null }
+                      回复</Text>
+                </Icon.Button>
+              </View>
+            }
+          </View>
+          
+        </View>
       </View>
     )
   }
@@ -155,9 +163,12 @@ export class Item extends React.Component {
 const styles = StyleSheet.create({
   container:{
     flex:1,
-    flexDirection: 'row',
     backgroundColor:'#fff',
-    padding:10,
+  },
+
+  userInfoContainer:{
+    flex:1, 
+    flexDirection:'row',
   },
 
   avatar:{
@@ -174,6 +185,23 @@ const styles = StyleSheet.create({
 
   text:{
      color:"#2c3e50",
+     fontSize:17,
+  },
+
+  datetime:{
+    color:defaultColor,
+    fontWeight: 'bold',
+    paddingTop:2,
+    fontSize:11,
+  },
+  actionBar :{
+    flex:1,
+    flexDirection: 'row',
+    alignSelf: 'flex-end',
+    justifyContent: 'flex-start',
+    borderWidth:1,
+    borderColor:'#dfe6e9',
+    paddingLeft:20
   }
 
 })

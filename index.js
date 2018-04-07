@@ -40,9 +40,9 @@ export class Comments extends React.Component {
     }
   }
 
-  onDown = ({item}) => {
+  onDislike = ({item}) => {
     try{
-      this.props.onDown({item});
+      this.props.onDislike({item});
     }catch(e){
     }
   }
@@ -100,7 +100,7 @@ export class Comments extends React.Component {
           replyNum={childCount}
           disableReply={false}
           onLike={this.onLike}
-          onDown={this.onDown}
+          onDislike={this.onDislike}
           onClick={this.onClick}
           onPress={this.onPress}
           onFollow={this.onFollow}
@@ -144,7 +144,7 @@ export class Comments extends React.Component {
         onEndReached={this.props.onEndReached}
         onFollow={this.onFollow}
         onLike={this.onLike}
-        onDown={this.onDown}
+        onDislike={this.onDislike}
                 />
     )
   }
