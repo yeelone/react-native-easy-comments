@@ -120,9 +120,9 @@ export class Comments extends React.Component {
     var  { avatar }  = this.props; 
     avatar = avatar || "";
     return (
-      <View style={{flex:1,flexDirection:'row'}}>
-        <Image source={{uri: avatar,width: 30, height: 30}} style={{marginTop:10,borderRadius:50}}/>
-        <Input style={{flex:1}} onSend={({content}) => this.onSend({parent,content})}/>
+      <View style={{flex:1,flexDirection:'row',height:30,margin:10,borderWidth:1, borderColor:'#cccccc',borderRadius:20}}>
+        <Image source={{uri: avatar,width: 25, height: 25}} style={{marginTop:2,marginLeft:5,borderRadius:20}}/>
+        <Input style={{flex:1,height:25,}} onSend={({content}) => this.onSend({parent,content})}/>
       </View>
     )
   }
@@ -145,7 +145,7 @@ export class Comments extends React.Component {
         onFollow={this.onFollow}
         onLike={this.onLike}
         onDislike={this.onDislike}
-                />
+        />
     )
   }
 

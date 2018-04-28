@@ -10,6 +10,8 @@ import {
     Platform,
 } from 'react-native';
 import Modal from 'react-native-modalbox';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 export class Input extends React.Component {
   constructor() {
     super();
@@ -63,17 +65,20 @@ export class Input extends React.Component {
                             <TouchableOpacity onPress={this.onPress} ><Text style={[styles.headerText,]} >发送</Text></TouchableOpacity>
                         }
                     </View>
-                    <TextInput
-                        editable={true}
-                        multiline={true}
-                        numberOfLines={20}
-                        placeholder="发表评论"
-                        underlineColorAndroid='transparent'
-                        onChangeText={(text) => this.onChangeText(text)}
-                        onContentSizeChange={(e) => this.updateSize(e.nativeEvent.contentSize.height)}
-                        value={this.state.text}
-                        style={[styles.textInputStyle,]}
-                        />  
+                    
+                        <Icon.Button name="reply" size={20} backgroundColor="transparent" color={'#22a6b3'} >
+                        </Icon.Button>
+                        <TextInput
+                            editable={true}
+                            multiline={true}
+                            numberOfLines={20}
+                            placeholder="发表回复"
+                            underlineColorAndroid='transparent'
+                            onChangeText={(text) => this.onChangeText(text)}
+                            onContentSizeChange={(e) => this.updateSize(e.nativeEvent.contentSize.height)}
+                            value={this.state.text}
+                            style={[styles.textInputStyle,]}
+                            /> 
                 </View>
             </Modal>
       </View>
@@ -90,7 +95,9 @@ const styles = StyleSheet.create({
     textInputStyle: { //文本输入组件样式
         flex:1,
         height: 30,
-        fontSize: 21,
+        fontSize: 15,
+        marginLeft:30,
+        marginTop:-20,
         padding:10,
         textAlignVertical:'top',
         backgroundColor:'#ecf0f1',
@@ -122,7 +129,7 @@ const styles = StyleSheet.create({
   
     headerText: {
         flex:1,
-        color:'#666666',
+        color:'#22a6b3',
         alignSelf:'flex-start',
         fontSize:16,
         padding:8,
@@ -130,7 +137,7 @@ const styles = StyleSheet.create({
     
       closeText: {
         flex:1,
-        color:'#666666',
+        color:'#22a6b3',
         alignSelf:'flex-end',
         fontSize:16,
         padding:8,

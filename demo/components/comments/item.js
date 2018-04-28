@@ -95,8 +95,9 @@ export class Item extends React.Component {
     const { username,avatar,content,time,like,dislike,disableReply } = this.props.data;
     var { avatarSize,style,replyNum } = this.props; 
     style = style || {};  
-    const defaultAvatarSize = { width: 40, height: 40 } 
+    const defaultAvatarSize = { width: 40, height: 40 } ;
     var iconSize = avatarSize || defaultAvatarSize;
+    
     return (
       <View style={[styles.container,style]} >
           <View style={[styles.userInfoContainer,]}>
@@ -104,7 +105,7 @@ export class Item extends React.Component {
               <Image source={{uri: avatar, ...iconSize}} style={[styles.avatar]}/>
             </View>
             <View style={{flex: 1,marginLeft:20,marginTop:10}}>
-                <Text style={{color:"#636e72",fontWeight: 'bold',fontSize:14}}>{username} </Text>
+                <Text style={{color:"#636e72",fontSize:14}}>{username} </Text>
                 <View style={{flex:1,flexDirection:'row'}}>
                   <Moment element={Text} format="YYYY-MM-DD" style={[styles.datetime,]}>{time}</Moment>
                   <Text  style={[styles.datetime,]}> · </Text>
@@ -185,7 +186,7 @@ const styles = StyleSheet.create({
 
   text:{
      color:"#2c3e50",
-     fontSize:17,
+     fontSize:14,
   },
 
   datetime:{
