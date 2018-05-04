@@ -18,7 +18,7 @@ export class Input extends React.Component {
     this.state = {
         text: '', 
         height: 0,
-        disabled: true,
+        disabled: false,
     }
   }
 
@@ -42,7 +42,8 @@ export class Input extends React.Component {
     if (text.replace(/(^\s*)|(\s*$)/g, "").length ==0) {
         disabled = true;
     }
-    this.setState({text,disabled})
+    setTimeout(() => {this.setState({ text: text })})
+    
   }
 
   render() {
@@ -66,19 +67,19 @@ export class Input extends React.Component {
                         }
                     </View>
                     
-                        <Icon.Button name="reply" size={20} backgroundColor="transparent" color={'#22a6b3'} >
-                        </Icon.Button>
-                        <TextInput
-                            editable={true}
-                            multiline={true}
-                            numberOfLines={20}
-                            placeholder="发表回复"
-                            underlineColorAndroid='transparent'
-                            onChangeText={(text) => this.onChangeText(text)}
-                            onContentSizeChange={(e) => this.updateSize(e.nativeEvent.contentSize.height)}
-                            value={this.state.text}
-                            style={[styles.textInputStyle,]}
-                            /> 
+                    <Icon.Button name="reply" size={20} backgroundColor="transparent" color={'#22a6b3'} >
+                    </Icon.Button>
+                    <TextInput
+                        editable={true}
+                        multiline={true}
+                        numberOfLines={20}
+                        placeholder="发表回复"
+                        underlineColorAndroid='transparent'
+                        // onChangeText={(text) => this.onChangeText(text)}
+                        onContentSizeChange={(e) => this.updateSize(e.nativeEvent.contentSize.height)}
+                        value={this.state.text}
+                        style={[styles.textInputStyle,]}
+                        /> 
                 </View>
             </Modal>
       </View>

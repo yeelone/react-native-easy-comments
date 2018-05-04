@@ -1,6 +1,6 @@
 {
   "name": "react-native-easy-comments",
-  "version": "1.0.11",
+  "version": "1.0.14",
   "description": "a react component supporing build your own comments",
   "main": "index.js",
   "scripts": {
@@ -21,10 +21,10 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yeelone/react-native-comments.git"
+    "url": "git+https://github.com/yeelone/react-native-easy-comments.git"
   },
   "bugs": {
-    "url": "https://github.com/yeelone/react-native-comments/issues"
+    "url": "https://github.com/yeelone/react-native-easy-comments/issues"
   },
-  "homepage": "https://github.com/yeelone/react-native-comments#readme"
+  "homepage": "https://github.com/yeelone/react-native-easy-comments#readme"
 }
