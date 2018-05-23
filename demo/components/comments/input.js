@@ -25,6 +25,7 @@ export class Input extends React.Component {
   onPress = () => {
       try {
         this.props.onSend({content:this.state.text});
+        this.refs.inputModal.close();
       }catch(e) {
           console.log("There is not designated props named onSend");
       }
@@ -38,12 +39,17 @@ export class Input extends React.Component {
   }
 
   onChangeText = (text) => {
-    var disabled = false ; 
-    if (text.replace(/(^\s*)|(\s*$)/g, "").length ==0) {
-        disabled = true;
-    }
+    // var disabled = false ; 
+    // if (text.replace(/(^\s*)|(\s*$)/g, "").length ==0) {
+    //     disabled = true;
+    // }
+    console.log(text)
     setTimeout(() => {this.setState({ text: text })})
     
+  }
+
+  updateText = (text) => {
+    this.setState({ text })
   }
 
   render() {
@@ -73,11 +79,11 @@ export class Input extends React.Component {
                         editable={true}
                         multiline={true}
                         numberOfLines={20}
+                        autoFocus={true}
                         placeholder="发表回复"
                         underlineColorAndroid='transparent'
-                        // onChangeText={(text) => this.onChangeText(text)}
+                        onChangeText={(text) => this.onChangeText(text)}
                         onContentSizeChange={(e) => this.updateSize(e.nativeEvent.contentSize.height)}
-                        value={this.state.text}
                         style={[styles.textInputStyle,]}
                         /> 
                 </View>
@@ -101,7 +107,6 @@ const styles = StyleSheet.create({
         marginTop:-20,
         padding:10,
         textAlignVertical:'top',
-        backgroundColor:'#ecf0f1',
         
     },
     header :{
